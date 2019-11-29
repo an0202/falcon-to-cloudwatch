@@ -3,10 +3,8 @@ module falcon-to-cloudwatch
 go 1.12
 
 require (
-	github.com/Sirupsen/logrus v1.0.6 // indirect
+	github.com/aws/aws-sdk-go v1.25.43
 	github.com/mindprince/gonvml v0.0.0-20190828220739-9ebdce4bb989
-	github.com/onsi/ginkgo v1.10.3 // indirect
-	github.com/onsi/gomega v1.7.1 // indirect
 	github.com/open-falcon/falcon-plus v0.2.2
 	github.com/sirupsen/logrus v1.4.2
 	github.com/stretchr/testify v1.4.0 // indirect
@@ -17,8 +15,7 @@ require (
 	github.com/toolkits/slice v0.0.0-20141116085117-e44a80af2484
 	github.com/toolkits/sys v0.0.0-20170615103026-1f33b217ffaf
 	github.com/toolkits/time v0.0.0-20160524122720-c274716e8d7f // indirect
-	golang.org/x/crypto v0.0.0-20191122220453-ac88ee75c92c // indirect
+	golang.org/x/net v0.0.0-20190404232315-eb5bcb51f2a3 // indirect
 	golang.org/x/sys v0.0.0-20191128015809-6d18c012aee9 // indirect
-	gopkg.in/airbrake/gobrake.v2 v2.0.9 // indirect
-	gopkg.in/gemnasium/logrus-airbrake-hook.v2 v2.1.2 // indirect
+	gopkg.in/yaml.v2 v2.2.4 // indirect
 )

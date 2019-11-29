@@ -60,6 +60,8 @@ func collect(sec int64, fns []func() []*model.MetricValue) {
 		}
 
 		mvs := []*model.MetricValue{}
+
+
 		ignoreMetrics := g.Config().IgnoreMetrics
 
 		for _, fn := range fns {
@@ -89,9 +91,8 @@ func collect(sec int64, fns []func() []*model.MetricValue) {
 		}
 		//add by anjie
 		for _,b := range mvs{
-			log.Print(b)
+			log.Print(b.Tags)
 		}
-		// g.SendToTransfer(mvs)
-
+		//g.SendToTransfer(mvs)
 	}
 }
