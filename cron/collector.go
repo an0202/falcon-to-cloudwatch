@@ -15,7 +15,7 @@
 package cron
 
 import (
-	"log"
+	"falcon-to-cloudwatch/http"
 	"time"
 
 	"falcon-to-cloudwatch/funcs"
@@ -59,8 +59,7 @@ func collect(sec int64, fns []func() []*model.MetricValue) {
 			continue
 		}
 
-		mvs := []*model.MetricValue{}
-
+		var mvs []*model.MetricValue
 
 		ignoreMetrics := g.Config().IgnoreMetrics
 
@@ -85,14 +84,12 @@ func collect(sec int64, fns []func() []*model.MetricValue) {
 
 		now := time.Now().Unix()
 		for j := 0; j < len(mvs); j++ {
-//			mvs[j].Step = sec
+			//			mvs[j].Step = sec
 			mvs[j].Endpoint = hostname
 			mvs[j].Timestamp = now
 		}
 		//add by anjie
-		for _,b := range mvs{
-			log.Print(b.Tags)
-		}
 		//g.SendToTransfer(mvs)
+		http.PushToCloudwatch(mvs)
 	}
 }
