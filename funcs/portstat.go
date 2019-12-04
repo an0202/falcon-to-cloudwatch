@@ -25,7 +25,8 @@ import (
 
 func PortMetrics() (L []*model.MetricValue) {
 
-	reportPorts := g.ReportPorts()
+	//reportPorts := g.ReportPorts()
+	reportPorts := g.Config().MonitoredPorts
 	sz := len(reportPorts)
 	if sz == 0 {
 		return

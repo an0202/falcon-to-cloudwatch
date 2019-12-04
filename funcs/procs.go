@@ -24,7 +24,8 @@ import (
 
 func ProcMetrics() (L []*model.MetricValue) {
 
-	reportProcs := g.ReportProcs()
+	//reportProcs := g.ReportProcs()
+	reportProcs := g.Config().MonitoredProcs
 	sz := len(reportProcs)
 	if sz == 0 {
 		return

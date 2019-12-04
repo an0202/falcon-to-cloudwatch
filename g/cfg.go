@@ -66,6 +66,10 @@ type GlobalConfig struct {
 	Collector     *CollectorConfig  `json:"collector"`
 	DefaultTags   map[string]string `json:"default_tags"`
 	IgnoreMetrics map[string]bool   `json:"ignore"`
+	//add port and process monitor
+	MonitoredPorts []int64 `json:"monitored_ports"`
+	// todo: procs monitor
+	MonitoredProcs map[string]map[int]string `json:"monitored_procs"`
 }
 
 var (
