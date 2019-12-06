@@ -8,13 +8,11 @@
 package http
 
 import (
-	//"encoding/json"
-	//"falcon-to-cloudwatch/g"
-	"fmt"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudwatch"
 	"github.com/open-falcon/falcon-plus/common/model"
+	"log"
 	"strings"
 )
 
@@ -108,6 +106,14 @@ func getFloat64(unk interface{}) (value float64) {
 		return float64(i)
 	case int64:
 		return float64(i)
+	case uint8:
+		return float64(i)
+	case uint16:
+		return float64(i)
+	case uint32:
+		return float64(i)
+	case uint64:
+		return float64(i)
 	// Todo : Unhandle error
 	default:
 		return 0.000000000000
@@ -151,12 +157,12 @@ func PushToCloudwatch(mvs []*model.MetricValue) {
 		}
 		metricdatums = append(metricdatums, &metricdatum)
 		if (i%9 == 0 && i != 0) || i == len(mvs)-1 {
-			fmt.Println(metricdatums)
+			//fmt.Println(metricdatums)
 			_, err := svc.PutMetricData(&cloudwatch.PutMetricDataInput{
 				Namespace:  aws.String("Porsche-CloudWatch-Test"),
 				MetricData: metricdatums})
 			if err != nil {
-				fmt.Println("Error adding metrics:", err.Error())
+				log.Println("Error adding metrics:", err.Error())
 				return
 			}
 		}
@@ -177,7 +183,6 @@ func PushToCloudwatchWithTagsSplit(mvs []*model.MetricValue) {
 	// Create new cloudwatch client.
 	svc := cloudwatch.New(sess)
 	// mvs process
-	fmt.Println(mvs)
 	var metricdatums []*cloudwatch.MetricDatum
 	for i, v := range mvs {
 		var dimensions []*cloudwatch.Dimension
@@ -209,12 +214,11 @@ func PushToCloudwatchWithTagsSplit(mvs []*model.MetricValue) {
 		}
 		metricdatums = append(metricdatums, &metricdatum)
 		if (i%3 == 0 && i != 0) || i == len(mvs)-1 {
-			fmt.Println(metricdatums)
 			_, err := svc.PutMetricData(&cloudwatch.PutMetricDataInput{
 				Namespace:  aws.String("Porsche-CloudWatch-Test"),
 				MetricData: metricdatums})
 			if err != nil {
-				fmt.Println("Error adding metrics:", err.Error())
+				log.Println("Error adding metrics:", err.Error())
 				return
 			}
 		}

@@ -11,6 +11,17 @@ conf=cfg.json
 pidfile=var/app.pid
 logfile=var/app.log
 
+#return instance id and set FALCON_ENDPOINT=${instanceid}
+function get_instanceid() {
+        instanceid=$(curl --connect-timeout 3 -fs http://169.254.169.254/latest/meta-data/instance-id/)
+        if [ "x${instanceid}" != "x" ]; then
+                echo "[INFO] Set ${instanceid} as value of endpoint"
+                export FALCON_ENDPOINT=${instanceid}
+        else
+                echo "[ERROR] This is not a ec2 instance, the value of endpoint will be set to ${NAME}"
+        fi
+}
+
 function check_pid() {
     if [ -f $pidfile ];then
         pid=`cat $pidfile`
@@ -23,6 +34,9 @@ function check_pid() {
 }
 
 function start() {
+    #get ec2 instance id
+    get_instanceid
+    #
     check_pid
     running=$?
     if [ $running -gt 0 ];then
@@ -30,7 +44,6 @@ function start() {
         cat $pidfile
         return 1
     fi
-
     if ! [ -f $conf ];then
         echo "Config file $conf doesn't exist, creating one."
         cp cfg.example.json $conf
