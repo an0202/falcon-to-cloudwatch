@@ -3,6 +3,7 @@ module falcon-to-cloudwatch
 go 1.12
 
 require (
+	github.com/Sirupsen/logrus v1.6.0 // indirect
 	github.com/aws/aws-sdk-go v1.25.43
 	github.com/mindprince/gonvml v0.0.0-20190828220739-9ebdce4bb989
 	github.com/open-falcon/falcon-plus v0.2.2
@@ -18,4 +19,11 @@ require (
 	golang.org/x/net v0.0.0-20190404232315-eb5bcb51f2a3 // indirect
 	golang.org/x/sys v0.0.0-20191128015809-6d18c012aee9 // indirect
 	gopkg.in/yaml.v2 v2.2.4 // indirect
+)
+
+replace (
+	github.com/Sirupsen/logrus v1.6.0 => github.com/sirupsen/logrus v1.6.0
+
+	github.com/sirupsen/logrus v1.6.0 => github.com/Sirupsen/logrus v1.6.1-0.20200528085638-6699a89a232f
+
 )
